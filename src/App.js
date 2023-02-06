@@ -1,6 +1,118 @@
-import FilterButton from "./Buttons";
+import { useState } from "react";
+import { ReactSVG } from "react-svg";
+import FilterButton from "./Components/FilterButtons";
+import OptionButton from "./Components/OptionItem";
+import useHorizontalScroll from "./Components/HorizontalScroll";
+import { ModalHeader, ModalSortItem } from "./Components/ModalSort";
+import FilterPriceButton from "./Components/FilterPriceButton";
+import FilterRangePriceButton from "./Components/FilterRangePriceButton";
+import FilterSubmitButton from "./Components/FilterSubmitButton";
+import GridList from "./Components/GridList";
 
-function App() {
+export default function App() {
+  const scrollRef = useHorizontalScroll();
+  const [stateFiterModal, setStateFiterModal] = useState(false);
+  const [stateSortModal, setStateSortModal] = useState(false);
+  const [searchState, setSearchState] = useState(['', '']);
+  const [sortState, setSortState] = useState('Popular');
+  const [filterState, setFilterState] = useState({
+    price: {
+      from: '',
+      to: ''
+    },
+    size: '',
+    type: '',
+    color: ''
+  });
+  const [filterOptionState, setfilterOptionState] = useState([]);
+  const [gridItems] = useState([
+    {
+      id: 1,
+      name: 'Product name 1',
+      image: '1-item-card.jpg',
+      purchase: {
+        rating: 3.2,
+        amount: 33,
+        buy: 321
+      },
+      price: 600,
+      status: ['Sale', '20'],
+      size: ['S', 'M'],
+      color: ['white', 'blue']
+    },
+    {
+      id: 2,
+      name: 'Product name 2',
+      image: '1-item-card.jpg',
+      purchase: {
+        rating: 5,
+        amount: 22,
+        buy: 90
+      },
+      price: 200,
+      status: ['New arrival'],
+      size: ['S', 'L'],
+      color: ['blue']
+    },
+    {
+      id: 3,
+      name: 'Product name 2',
+      image: '1-item-card.jpg',
+      purchase: {
+        rating: 5,
+        amount: 22,
+        buy: 1111
+      },
+      price: 2222,
+      status: ['New arrival'],
+      size: ['L', 'XL'],
+      color: ['gray']
+    },
+    {
+      id: 4,
+      name: 'Product name 2',
+      image: '1-item-card.jpg',
+      purchase: {
+        rating: 5,
+        amount: 22,
+        buy: 6
+      },
+      price: 300,
+      status: ['Sale', '40'],
+      size: ['S', 'L', 'XXL'],
+      color: ['gray']
+    },
+    {
+      id: 5,
+      name: 'Product name 32',
+      image: '1-item-card.jpg',
+      purchase: {
+        rating: 5,
+        amount: 22,
+        buy: 32
+      },
+      price: 120,
+      status: ['New arrival'],
+      size: ['S', 'L', 'XXL'],
+      color: ['gray']
+    },
+    {
+      id: 6,
+      name: 'Product name 2',
+      image: '1-item-card.jpg',
+      purchase: {
+        rating: 5,
+        amount: 22,
+        buy: 111
+      },
+      price: 50,
+      status: ['New arrival'],
+      size: ['XXL'],
+      color: ['blue']
+    },
+  ]);
+  //console.log(searchState)
+
   return (
     <div className="app">
       <h1 className="app__label">Search</h1>
@@ -8,61 +120,151 @@ function App() {
         <input
           type='text'
           placeholder="Search product"
+          value={searchState[0]}
+          onChange={e => setSearchState(prev => [e.target.value, [...prev][1]])}
         />
-        <svg className="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clipPath="url(#clip0_5203_6475)">
-          <path fillRule="evenodd" clipRule="evenodd" d="M10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18C11.8487 18 13.551 17.3729 14.9056 16.3199L20.2929 21.7071C20.6834 22.0976 21.3166 22.0976 21.7071 21.7071C22.0976 21.3166 22.0976 20.6834 21.7071 20.2929L16.3199 14.9056C17.3729 13.551 18 11.8487 18 10C18 5.58172 14.4183 2 10 2ZM4 10C4 6.68629 6.68629 4 10 4C13.3137 4 16 6.68629 16 10C16 13.3137 13.3137 16 10 16C6.68629 16 4 13.3137 4 10Z" fill="#808089"/>
-          </g>
-          <defs>
-          <clipPath id="clip0_5203_6475">
-          <rect width="20" height="20" fill="white" transform="translate(2 2)"/>
-          </clipPath>
-          </defs>
-        </svg>
-        <svg className="close-search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4.29289 18.2929C3.90237 18.6834 3.90237 19.3166 4.29289 19.7071C4.68342 20.0976 5.31658 20.0976 5.70711 19.7071L12 13.4142L18.2929 19.7071C18.6834 20.0976 19.3166 20.0976 19.7071 19.7071C20.0976 19.3166 20.0976 18.6834 19.7071 18.2929L13.4142 12L19.7071 5.70711C20.0976 5.31658 20.0976 4.68342 19.7071 4.29289C19.3166 3.90237 18.6834 3.90237 18.2929 4.29289L12 10.5858L5.70711 4.2929C5.31658 3.90237 4.68342 3.90237 4.29289 4.2929C3.90237 4.68342 3.90237 5.31658 4.29289 5.70711L10.5858 12L4.29289 18.2929Z" fill="#808089"/>
-        </svg>
+        <ReactSVG 
+          onClick={() => setSearchState(prev => [[...prev][0], prev[0]])} 
+          className="search-icon" src={require('./image/Search-icon.svg').default} 
+        />
+        <ReactSVG 
+          onClick={() => setSearchState(['', ''])} 
+          className={"close-search-icon" + (searchState[0] ? ' visible' : '')} 
+          src={require('./image/Close-search-icon.svg').default} 
+        />
       </div>
-      <div className="filter__block">
-        <button className="filter__button filter-mode filtered">
-          <svg className="filter-icon" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_5205_217734)">
-            <path fillRule="evenodd" clipRule="evenodd" d="M1.66675 2.49984C1.66675 2.0396 2.03984 1.6665 2.50008 1.6665H17.5001C17.9603 1.6665 18.3334 2.0396 18.3334 2.49984V4.65466C18.3334 5.09669 18.1578 5.52061 17.8453 5.83317L12.5001 11.1783V15.8332C12.5001 16.1488 12.3217 16.4374 12.0394 16.5785L8.70609 18.2452C8.44777 18.3744 8.14099 18.3606 7.89531 18.2087C7.64963 18.0569 7.50008 17.7887 7.50008 17.4998V11.1783L2.1549 5.83317C1.84234 5.52061 1.66675 5.09669 1.66675 4.65466V2.49984ZM3.33341 3.33317V4.65466L8.92267 10.2439C9.07895 10.4002 9.16675 10.6122 9.16675 10.8332V16.1515L10.8334 15.3181V10.8332C10.8334 10.6122 10.9212 10.4002 11.0775 10.2439L16.6667 4.65466V3.33317H3.33341Z"/>
-            </g>
-            <defs>
-            <clipPath id="clip0_5205_217734">
-            <rect width="16.6667" height="16.6667" fill="white" transform="translate(1.66675 1.6665)"/>
-            </clipPath>
-            </defs>
-          </svg>
-          <span>Filter</span>
-        </button>
-        <button className="filter__button sorting-mode">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_5205_217744)">
-              <path fillRule="evenodd" clipRule="evenodd" d="M5.24416 1.91058C5.5696 1.58514 6.09723 1.58514 6.42267 1.91058L9.756 5.24392C10.0814 5.56935 10.0814 6.09699 9.756 6.42243C9.43057 6.74786 8.90293 6.74786 8.57749 6.42243L6.66675 4.51168V15.8332C6.66675 16.2934 6.29365 16.6665 5.83342 16.6665C5.37318 16.6665 5.00008 16.2934 5.00008 15.8332V4.51168L3.08934 6.42243C2.7639 6.74786 2.23626 6.74786 1.91083 6.42243C1.58539 6.09699 1.58539 5.56935 1.91083 5.24392L5.24416 1.91058ZM14.1667 3.33317C14.627 3.33317 15.0001 3.70627 15.0001 4.1665L15.0001 15.488L16.9108 13.5772C17.2363 13.2518 17.7639 13.2518 18.0893 13.5772C18.4148 13.9027 18.4148 14.4303 18.0893 14.7558L14.756 18.0891C14.5997 18.2454 14.3878 18.3332 14.1667 18.3332C13.9457 18.3332 13.7338 18.2454 13.5775 18.0891L10.2442 14.7558C9.91872 14.4303 9.91872 13.9027 10.2442 13.5772C10.5696 13.2518 11.0972 13.2518 11.4227 13.5772L13.3334 15.488L13.3334 4.1665C13.3334 3.70627 13.7065 3.33317 14.1667 3.33317Z" fill="#1A94FF"/>
-            </g>
-            <defs>
-              <clipPath id="clip0_5205_217744">
-                <rect width="16.6667" height="16.6667" fill="white" transform="translate(1.66675 1.6665)"/>
-              </clipPath>
-            </defs>
-          </svg>
-          <span>Popular</span>
-        </button>
+      <div className="scroll__block">
+        <div className="filter__block">
+          <FilterButton
+            mode='filter-mode'
+            stateModal={setStateFiterModal}
+            state={filterOptionState}
+            content='Filter'
+            image='Filter-icon.svg'
+          />
+          <FilterButton
+            mode='sorting-mode'
+            stateModal={setStateSortModal}
+            content={sortState}
+            image='Sorting-icon.svg'
+          />
+        </div>
+        <div className={"filtered-options" +
+           (filterOptionState.length > 0 ? ' visible' : '')
+          } 
+          ref={scrollRef}
+        >
+            {filterOptionState.map((item, index) => 
+              <OptionButton 
+                option={item} 
+                key={index} 
+                optionState={[filterOptionState, setfilterOptionState]} 
+                filterState={[filterState, setFilterState]} 
+              />
+            )}
+        </div>
+        <GridList 
+          gridItems={gridItems} 
+          sortMethod={sortState} 
+          filterMethod={filterState} 
+          searchMethod={searchState}
+        />
       </div>
-      <div className="filtered-options">
-        <div className="option-item">
-          <span>Option: Value</span>
-          <button>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.13807 3.19526C3.87772 2.93491 3.45561 2.93491 3.19526 3.19526C2.93491 3.45561 2.93491 3.87772 3.19526 4.13807L6.05719 7L3.19526 9.86193C2.93491 10.1223 2.93491 10.5444 3.19526 10.8047C3.45561 11.0651 3.87772 11.0651 4.13807 10.8047L7 7.94281L9.86193 10.8047C10.1223 11.0651 10.5444 11.0651 10.8047 10.8047C11.0651 10.5444 11.0651 10.1223 10.8047 9.86193L7.94281 7L10.8047 4.13807C11.0651 3.87772 11.0651 3.45561 10.8047 3.19526C10.5444 2.93491 10.1223 2.93491 9.86193 3.19526L7 6.05719L4.13807 3.19526Z" fill="#515158"/>
-            </svg>
-          </button>
+      <div className="modal__wrapper">
+        <div className={"modal modal__filter" + (stateFiterModal ? ' active' : '')}>
+          <ModalHeader 
+            stateModal={setStateFiterModal} 
+            type='filter' 
+            text='Filter' 
+            closeIcon='Close-search-icon.svg' 
+          />
+          <div className="modal__main">
+            <div className="modal__filter-block price__block">
+              <label>Price</label>
+              <div className="price__block-singlePrice">
+                <FilterPriceButton mode='price' from='' to='100' text='Below 100$' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='price' from='100' to='200' text='100$ - 200$' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='price' from='200' to='750' text='200$ - 750$' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='price' from='750' to='' text='Above 750$' activity={[filterState, setFilterState]} />
+              </div>
+              <span>Or insert price range below</span>
+              <div className="price__block-rangePrice">
+                <FilterRangePriceButton from label='From' activity={[filterState, setFilterState]} />
+                <FilterRangePriceButton to label='To' activity={[filterState, setFilterState]} />
+              </div>
+            </div>
+            <div className="modal__filter-block size__block">
+              <label>Size</label>
+              <div className="buttons__block">
+                <FilterPriceButton mode='size' text='XS' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='size' text='S' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='size' text='M' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='size' text='XL' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='size' text='XXL' size='filter-size' activity={[filterState, setFilterState]} />
+              </div>
+            </div>
+            <div className="modal__filter-block product__block">
+              <label>Product type</label>
+              <div className="buttons__block">
+                <FilterPriceButton mode='type' text='New arrival' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='type' text='Sale' activity={[filterState, setFilterState]} />
+              </div>
+            </div>
+            <div className="modal__filter-block color__block">
+              <label>Color</label>
+              <div className="buttons__block">
+                <FilterPriceButton mode='color' className='white' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='color' className='blue' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='color' className='beige' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='color' className='brown' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='color' className='gray' activity={[filterState, setFilterState]} />
+              </div>
+            </div>
+          </div>
+          <div className="modal__filter-buttons">
+            <FilterSubmitButton 
+              mode='Reset' 
+              filterState={[filterState, setFilterState]} 
+              optionState={setfilterOptionState} 
+            />
+            <FilterSubmitButton 
+              mode='Apply' 
+              filterState={[filterState, setFilterState]} 
+              optionState={setfilterOptionState} 
+              setStateFiterModal={setStateFiterModal}
+            />
+          </div>
+        </div>
+        <div className={"modal modal__sorting" + (stateSortModal ? ' active' : '')}>
+          <ModalHeader 
+            stateModal={setStateSortModal} 
+            type='sorting' 
+            text='Sort' 
+          />
+          <div className="modal__main">
+            <ModalSortItem 
+              atribute='Popular' 
+              activity={[sortState, setSortState]} 
+              setStateSortModal={setStateSortModal}
+            />
+            <ModalSortItem 
+              atribute='Top selling' 
+              activity={[sortState, setSortState]} 
+              setStateSortModal={setStateSortModal}
+            />
+            <ModalSortItem 
+              atribute='Price: Low to High' 
+              activity={[sortState, setSortState]} 
+              setStateSortModal={setStateSortModal}
+            />
+            <ModalSortItem 
+              atribute='Price: High to Low' 
+              activity={[sortState, setSortState]} 
+              setStateSortModal={setStateSortModal}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
-export default App;
