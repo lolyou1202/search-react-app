@@ -70,7 +70,7 @@ export default function App() {
     },
     {
       id: 4,
-      name: 'Product name 2',
+      name: 'Product name 20',
       image: '1-item-card.jpg',
       purchase: {
         rating: 5,
@@ -80,7 +80,7 @@ export default function App() {
       price: 300,
       status: ['Sale', '40'],
       size: ['S', 'L', 'XXL'],
-      color: ['gray']
+      color: ['gray', 'white']
     },
     {
       id: 5,
@@ -111,7 +111,7 @@ export default function App() {
       color: ['blue']
     },
   ]);
-  console.log(filterState)
+  //console.log(filterOptionState)
   return (
     <div className="app">
       <h1 className="app__label">Search</h1>
@@ -149,18 +149,18 @@ export default function App() {
           />
         </div>
         <div className={"filtered-options" +
-           (filterOptionState.length > 0 ? ' visible' : '')
+            (filterOptionState.length > 0 ? ' visible' : '')
           } 
           ref={scrollRef}
         >
-            {filterOptionState.map((item, index) => 
-              <OptionButton 
-                option={item} 
-                key={index} 
-                optionState={[filterOptionState, setfilterOptionState]} 
-                filterState={[filterState, setFilterState]} 
-              />
-            )}
+          {filterOptionState.map((item, index) => 
+            <OptionButton 
+              option={item} 
+              key={index} 
+              optionState={[filterOptionState, setfilterOptionState]} 
+              filterState={setFilterState} 
+            />
+          )}
         </div>
         <GridList 
           gridItems={gridItems} 

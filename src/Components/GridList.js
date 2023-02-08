@@ -25,31 +25,43 @@ export default function GridList({sortMethod, filterMethod, gridItems, searchMet
             })
             searchingGridItems = price;
         }
-        console.log(filterMethod.size.typeOf());
-        if (filterMethod.size !== '[]') {
-            let size;
-            [filterMethod.size].forEach(element => {
-                searchingGridItems.forEach(elem => {
-                    //console.log(elem, element);
-                    if (elem !== element) {
-                        let size = [];
-                        size.push(elem)
-                        //console.log(size);
+        if (filterMethod.size.length !== 0) {
+            let size = searchingGridItems.filter(item => {
+                let counter = 0;
+                for (let i = 0; i < item.size.length; i++) {
+                    if (filterMethod.size.includes(item.size[i]) === true) {
+                        counter++
                     }
-                })
-                //console.log(size);
-                //size = searchingGridItems.filter(item => item.size[0].includes(element))
-                //onsole.log(size);
+                }
+                counter === filterMethod.size.length ? counter = true : counter = false
+                return counter
             });
-            //console.log(size);
             searchingGridItems = size;
         }
-        if (filterMethod.type !== []) {
-            const type = searchingGridItems.filter(item => item.status[0].includes(filterMethod.type))
+        if (filterMethod.type.length !== 0) {
+            let type = searchingGridItems.filter(item => {
+                let counter = 0;
+                for (let i = 0; i < item.status.length; i++) {
+                    if (filterMethod.type.includes(item.status[i]) === true) {
+                        counter++
+                    }
+                }
+                counter === filterMethod.type.length ? counter = true : counter = false
+                return counter
+            });
             searchingGridItems = type;
         }
-        if (filterMethod.color !== []) {
-            const color = searchingGridItems.filter(item => item.color[0].includes(filterMethod.color))
+        if (filterMethod.color.length !== 0) {
+            let color = searchingGridItems.filter(item => {
+                let counter = 0;
+                for (let i = 0; i < item.color.length; i++) {
+                    if (filterMethod.color.includes(item.color[i]) === true) {
+                        counter++
+                    }
+                }
+                counter === filterMethod.color.length ? counter = true : counter = false
+                return counter
+            });
             searchingGridItems = color;
         }
 

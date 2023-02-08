@@ -1,14 +1,15 @@
 import { ReactSVG } from "react-svg";
 
-export default function OptionButton ({option, optionState, filterState, ...props}) {
+export default function OptionButton ( {option, optionState, filterState} ) {
     const state = optionState[0];
     const setState = optionState[1];
     
     const handlerClick = () => {
+        console.log(state)
         const listOptions = state.filter(item => item !== option);
         setState(listOptions);
         if (Object.keys(option)[0].toLowerCase() === 'price') {
-            filterState[1](previosState => ({
+            filterState(previosState => ({
                 ...previosState,
                 price: {
                     from: '',
@@ -16,9 +17,9 @@ export default function OptionButton ({option, optionState, filterState, ...prop
                 }
             }))
         } else {
-            filterState[1](previosState => ({
+            filterState(previosState => ({
                 ...previosState,
-                [Object.keys(option)[0].toLowerCase()]: ''
+                [Object.keys(option)[0].toLowerCase()]: []
             }))
         }
         

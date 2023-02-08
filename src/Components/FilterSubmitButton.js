@@ -10,9 +10,9 @@ export default function FilterSubmitButton (props) {
                     from: '',
                     to: ''
                 },
-                size: '',
-                type: '',
-                color: ''
+                size: [],
+                type: [],
+                color: []
             })
         } else {
             let price, size, type, color;
@@ -24,17 +24,17 @@ export default function FilterSubmitButton (props) {
                     (filterState.price.to ? `${filterState.price.to}` : '0')
                 }
             }
-            if (filterState.size) {
+            if (filterState.size.length !== 0) {
                 size = {
                     'Size': filterState.size
                 }
             }
-            if (filterState.type) {
+            if (filterState.type.length !== 0) {
                 type = {
                     'Type': filterState.type
                 }
             }
-            if (filterState.color) {
+            if (filterState.color.length !== 0) {
                 color = {
                     'Color': filterState.color
                 }
