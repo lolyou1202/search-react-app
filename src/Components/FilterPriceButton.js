@@ -23,28 +23,28 @@ export default function FilterPriceButton (props) {
             }
         }
         if (props.mode === 'size' || props.mode === 'type') {
-            if (state[props.mode] === props.text) {
-                setState(previosState => ({
-                    ...previosState,
-                    [props.mode]: ''
+            if (state[props.mode].includes(props.text)) {
+                setState(prev => ({
+                    ...prev,
+                    [props.mode]: [...prev[props.mode]].filter(item => item !== props.text)
                 }))
             } else {
                 setState(previosState => ({
                     ...previosState,
-                    [props.mode]: props.text
+                    [props.mode]: [...previosState[props.mode], props.text]
                 }))
             }
         }
         if (props.mode === 'color') {
-            if (state[props.mode] === props.className) {
-                setState(previosState => ({
-                    ...previosState,
-                    [props.mode]: ''
+            if (state[props.mode].includes(props.className)) {
+                setState(prev => ({
+                    ...prev,
+                    [props.mode]: [...prev[props.mode]].filter(item => item !== props.className)
                 }))
             } else {
                 setState(previosState => ({
                     ...previosState,
-                    [props.mode]: props.className
+                    [props.mode]: [...previosState[props.mode], props.className]
                 }))
             }
         }
@@ -56,8 +56,8 @@ export default function FilterPriceButton (props) {
                 (props.className ? ` ${props.className}` : 'button-default') + 
                 (props.size ? ` ${props.size}` : '') + 
                 ((props.mode === 'price' && (state.price.from === props.from && state.price.to === props.to)) ? ' active' : '') + 
-                (((props.mode === 'size' || props.mode === 'type') && (state[props.mode] === props.text)) ? ' active' : '') + 
-                ((props.mode === 'color' && state[props.mode] === props.className) ? ' active' : '')
+                (((props.mode === 'size' || props.mode === 'type') && (state[props.mode].includes(props.text))) ? ' active' : '') + 
+                ((props.mode === 'color' && state[props.mode].includes(props.className)) ? ' active' : '')
             }
             onClick={handlerClick}
         >

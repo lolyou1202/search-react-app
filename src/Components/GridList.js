@@ -11,7 +11,6 @@ export default function GridList({sortMethod, filterMethod, gridItems, searchMet
     }, [searchMethod])
     const filtering = useCallback((gridItems) => {
         let searchingGridItems = searching(gridItems)
-
         if (filterMethod.price.from !== '' || filterMethod.price.to !== '') {
             const price = searchingGridItems.filter(item => {
                 let from = filterMethod.price.from;
@@ -26,15 +25,30 @@ export default function GridList({sortMethod, filterMethod, gridItems, searchMet
             })
             searchingGridItems = price;
         }
-        if (filterMethod.size !== '') {
-            const size = searchingGridItems.filter(item => item.size.includes(filterMethod.size))
+        console.log(filterMethod.size.typeOf());
+        if (filterMethod.size !== '[]') {
+            let size;
+            [filterMethod.size].forEach(element => {
+                searchingGridItems.forEach(elem => {
+                    //console.log(elem, element);
+                    if (elem !== element) {
+                        let size = [];
+                        size.push(elem)
+                        //console.log(size);
+                    }
+                })
+                //console.log(size);
+                //size = searchingGridItems.filter(item => item.size[0].includes(element))
+                //onsole.log(size);
+            });
+            //console.log(size);
             searchingGridItems = size;
         }
-        if (filterMethod.type !== '') {
+        if (filterMethod.type !== []) {
             const type = searchingGridItems.filter(item => item.status[0].includes(filterMethod.type))
             searchingGridItems = type;
         }
-        if (filterMethod.color !== '') {
+        if (filterMethod.color !== []) {
             const color = searchingGridItems.filter(item => item.color[0].includes(filterMethod.color))
             searchingGridItems = color;
         }

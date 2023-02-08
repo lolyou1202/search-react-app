@@ -20,9 +20,9 @@ export default function App() {
       from: '',
       to: ''
     },
-    size: '',
-    type: '',
-    color: ''
+    size: [],
+    type: [],
+    color: []
   });
   const [filterOptionState, setfilterOptionState] = useState([]);
   const [gridItems] = useState([
@@ -111,8 +111,7 @@ export default function App() {
       color: ['blue']
     },
   ]);
-  //console.log(searchState)
-
+  console.log(filterState)
   return (
     <div className="app">
       <h1 className="app__label">Search</h1>
@@ -199,6 +198,7 @@ export default function App() {
                 <FilterPriceButton mode='size' text='XS' size='filter-size' activity={[filterState, setFilterState]} />
                 <FilterPriceButton mode='size' text='S' size='filter-size' activity={[filterState, setFilterState]} />
                 <FilterPriceButton mode='size' text='M' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterPriceButton mode='size' text='L' size='filter-size' activity={[filterState, setFilterState]} />
                 <FilterPriceButton mode='size' text='XL' size='filter-size' activity={[filterState, setFilterState]} />
                 <FilterPriceButton mode='size' text='XXL' size='filter-size' activity={[filterState, setFilterState]} />
               </div>
