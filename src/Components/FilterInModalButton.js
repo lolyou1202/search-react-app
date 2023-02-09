@@ -1,4 +1,4 @@
-export default function FilterPriceButton (props) {
+export default function FilterInModalButton (props) {
     const state = props.activity[0];
     const setState = props.activity[1];
 

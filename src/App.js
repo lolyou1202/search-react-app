@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { ReactSVG } from "react-svg";
 import FilterButton from "./Components/FilterButtons";
-import OptionButton from "./Components/OptionItem";
+import OptionItem from "./Components/OptionItem";
 import useHorizontalScroll from "./Components/HorizontalScroll";
 import { ModalHeader, ModalSortItem } from "./Components/ModalSort";
-import FilterPriceButton from "./Components/FilterPriceButton";
+import FilterInModalButton from "./Components/FilterInModalButton";
 import FilterRangePriceButton from "./Components/FilterRangePriceButton";
 import FilterSubmitButton from "./Components/FilterSubmitButton";
 import GridList from "./Components/GridList";
@@ -154,7 +154,7 @@ export default function App() {
           ref={scrollRef}
         >
           {filterOptionState.map((item, index) => 
-            <OptionButton 
+            <OptionItem 
               option={item} 
               key={index} 
               optionState={[filterOptionState, setfilterOptionState]} 
@@ -181,10 +181,10 @@ export default function App() {
             <div className="modal__filter-block price__block">
               <label>Price</label>
               <div className="price__block-singlePrice">
-                <FilterPriceButton mode='price' from='' to='100' text='Below 100$' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='price' from='100' to='200' text='100$ - 200$' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='price' from='200' to='750' text='200$ - 750$' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='price' from='750' to='' text='Above 750$' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='price' from='' to='100' text='Below 100$' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='price' from='100' to='200' text='100$ - 200$' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='price' from='200' to='750' text='200$ - 750$' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='price' from='750' to='' text='Above 750$' activity={[filterState, setFilterState]} />
               </div>
               <span>Or insert price range below</span>
               <div className="price__block-rangePrice">
@@ -195,29 +195,29 @@ export default function App() {
             <div className="modal__filter-block size__block">
               <label>Size</label>
               <div className="buttons__block">
-                <FilterPriceButton mode='size' text='XS' size='filter-size' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='size' text='S' size='filter-size' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='size' text='M' size='filter-size' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='size' text='L' size='filter-size' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='size' text='XL' size='filter-size' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='size' text='XXL' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='size' text='XS' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='size' text='S' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='size' text='M' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='size' text='L' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='size' text='XL' size='filter-size' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='size' text='XXL' size='filter-size' activity={[filterState, setFilterState]} />
               </div>
             </div>
             <div className="modal__filter-block product__block">
               <label>Product type</label>
               <div className="buttons__block">
-                <FilterPriceButton mode='type' text='New arrival' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='type' text='Sale' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='type' text='New arrival' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='type' text='Sale' activity={[filterState, setFilterState]} />
               </div>
             </div>
             <div className="modal__filter-block color__block">
               <label>Color</label>
               <div className="buttons__block">
-                <FilterPriceButton mode='color' className='white' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='color' className='blue' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='color' className='beige' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='color' className='brown' activity={[filterState, setFilterState]} />
-                <FilterPriceButton mode='color' className='gray' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='color' className='white' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='color' className='blue' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='color' className='beige' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='color' className='brown' activity={[filterState, setFilterState]} />
+                <FilterInModalButton mode='color' className='gray' activity={[filterState, setFilterState]} />
               </div>
             </div>
           </div>
