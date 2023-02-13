@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import GridItem from './GridItem';
-
+//компонент лист элемента
 export default function GridList({sortMethod, filterMethod, gridItems, searchMethod}) {
     const searching = useCallback((gridItems) => {
         if (searchMethod[1] !== '') {

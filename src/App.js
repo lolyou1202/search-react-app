@@ -10,11 +10,17 @@ import FilterSubmitButton from "./Components/FilterSubmitButton";
 import GridList from "./Components/GridList";
 
 export default function App() {
+  //референс на блок горизонтального скролла
   const scrollRef = useHorizontalScroll();
+  //стейт модального окна фильтрации
   const [stateFiterModal, setStateFiterModal] = useState(false);
+  //стейт модального окна сортировки
   const [stateSortModal, setStateSortModal] = useState(false);
+  //стейт поиска по товарам
   const [searchState, setSearchState] = useState(['', '']);
+  //стейт общий стейт сортировки по элементам 
   const [sortState, setSortState] = useState('Popular');
+  //стейт общий стейт фильтрации по элементам 
   const [filterState, setFilterState] = useState({
     price: {
       from: '',
@@ -24,7 +30,9 @@ export default function App() {
     type: [],
     color: []
   });
+  //стейт option карточек после фильтрации
   const [filterOptionState, setfilterOptionState] = useState([]);
+  //стейт всех карточек из списка
   const [gridItems] = useState([
     {
       id: 1,
@@ -115,6 +123,7 @@ export default function App() {
   return (
     <div className="app">
       <h1 className="app__label">Search</h1>
+      {/*Блок поиска по товарам*/}
       <div className="input__block">
         <input
           type='text'
@@ -132,7 +141,9 @@ export default function App() {
           src={require('./image/Close-search-icon.svg').default} 
         />
       </div>
+      {/*Блок который можно скроллить*/}
       <div className="scroll__block">
+        {/*Кнопки фильтрации и сортирови вызывающие одноимённые окна*/}
         <div className="filter__block">
           <FilterButton
             mode='filter-mode'
@@ -148,11 +159,13 @@ export default function App() {
             image='Sorting-icon.svg'
           />
         </div>
+        {/*Лист всех карточек option*/}
         <div className={"filtered-options" +
             (filterOptionState.length > 0 ? ' visible' : '')
           } 
           ref={scrollRef}
         >
+          {/*Заполнение списка option карточек из стейта*/}
           {filterOptionState.map((item, index) => 
             <OptionItem 
               option={item} 
@@ -162,6 +175,7 @@ export default function App() {
             />
           )}
         </div>
+        {/*Лист всех элементов*/}
         <GridList 
           gridItems={gridItems} 
           sortMethod={sortState} 
@@ -170,6 +184,7 @@ export default function App() {
         />
       </div>
       <div className="modal__wrapper">
+        {/*Модальное окно фильтрации*/}
         <div className={"modal modal__filter" + (stateFiterModal ? ' active' : '')}>
           <ModalHeader 
             stateModal={setStateFiterModal} 
@@ -178,6 +193,7 @@ export default function App() {
             closeIcon='Close-search-icon.svg' 
           />
           <div className="modal__main">
+            {/*Выбор цены*/}
             <div className="modal__filter-block price__block">
               <label>Price</label>
               <div className="price__block-singlePrice">
@@ -192,6 +208,7 @@ export default function App() {
                 <FilterRangePriceButton to label='To' activity={[filterState, setFilterState]} />
               </div>
             </div>
+            {/*Выбор размера*/}
             <div className="modal__filter-block size__block">
               <label>Size</label>
               <div className="buttons__block">
@@ -203,6 +220,7 @@ export default function App() {
                 <FilterInModalButton mode='size' text='XXL' size='filter-size' activity={[filterState, setFilterState]} />
               </div>
             </div>
+            {/*Выбор типа новизны*/}
             <div className="modal__filter-block product__block">
               <label>Product type</label>
               <div className="buttons__block">
@@ -210,6 +228,7 @@ export default function App() {
                 <FilterInModalButton mode='type' text='Sale' activity={[filterState, setFilterState]} />
               </div>
             </div>
+            {/*Выбор цвета*/}
             <div className="modal__filter-block color__block">
               <label>Color</label>
               <div className="buttons__block">
@@ -235,12 +254,14 @@ export default function App() {
             />
           </div>
         </div>
+        {/*Модальное окно сортировки*/}
         <div className={"modal modal__sorting" + (stateSortModal ? ' active' : '')}>
           <ModalHeader 
             stateModal={setStateSortModal} 
             type='sorting' 
             text='Sort' 
           />
+          {/*Выбор вида сортировки*/}
           <div className="modal__main">
             <ModalSortItem 
               atribute='Popular' 

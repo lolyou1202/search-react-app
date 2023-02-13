@@ -1,9 +1,9 @@
 import { ReactSVG } from "react-svg";
-
+//компонент элемента option
 export default function OptionItem ( {option, optionState, filterState} ) {
     const state = optionState[0];
     const setState = optionState[1];
-    
+    //функция закрытия элемента option и изменения состояния фильтрации после этого
     const handlerClick = () => {
         const listOptions = state.filter(item => item !== option);
         setState(listOptions);

@@ -1,7 +1,8 @@
+//компонент инпута для выбора диапазона цены в модальном окне фильтрации
 export default function FilterRangePriceButton(props) {
     const state = props.activity[0];
     const setState = props.activity[1];
-
+    //функция изменения цены в стейте фильтрации при изменении данных в инпут
     const handlerChange = (e) => {
         const value = e.target.value;
         if (props.from) {
@@ -21,7 +22,6 @@ export default function FilterRangePriceButton(props) {
                 }
             }))
         }
-        
     }
 
     return (

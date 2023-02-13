@@ -1,10 +1,11 @@
 import { ReactSVG } from "react-svg";
-
+//компонент кнопки вызова модального окна фильтрации или сортировки
 export default function FilterButton (props) {
-
+    //функция изменения стейта модального окна true/false
     const trueStateModal = (setState) => {
         setState(true)
     }
+    //вызов функции
     const handleStateModal = function (e) {
         trueStateModal(props.stateModal)
     }

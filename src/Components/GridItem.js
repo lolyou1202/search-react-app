@@ -1,5 +1,5 @@
 import { ReactSVG } from "react-svg";
-
+//компонент товара, принимающего какие то атрибуты
 export default function GridItem({config}) {
 
   return (

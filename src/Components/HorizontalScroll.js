@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-
+//компонент блока горизонтального скролла
 export default function useHorizontalScroll() {
   const elRef = useRef();
   useEffect(() => {

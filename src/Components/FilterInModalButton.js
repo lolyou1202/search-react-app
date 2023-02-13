@@ -1,7 +1,8 @@
+//компонент кнопки выбора разной фильтрации в модальном окне
 export default function FilterInModalButton (props) {
     const state = props.activity[0];
     const setState = props.activity[1];
-
+    //функция изменения состояния фильтрации по какому то из атрибутов
     const handlerClick = () => {
         if (props.mode === 'price') {
             if (state.price.from === props.from && state.price.to === props.to) {

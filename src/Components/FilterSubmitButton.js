@@ -1,8 +1,9 @@
+//компонент кнопки принятия/сброса фильтрации в модальном окне фильтрации
 export default function FilterSubmitButton (props) {
     const filterState = props.filterState[0];
     const setFilterState = props.filterState[1];
     const setOptionState = props.optionState;
-
+    //функция изменения состояния фильтрации при нажатии
     const handlerChange = (e) => {
         if (props.mode === 'Reset') {
             setFilterState({

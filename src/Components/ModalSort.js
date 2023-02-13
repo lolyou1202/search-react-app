@@ -1,10 +1,11 @@
 import { ReactSVG } from "react-svg";
-
+//компонент headerа у модальных окон
 export function ModalHeader (props) {
-
+    //функция закрытия модального окна при нажатии на крест
     const falseStateModal = (setState) => {
         setState(false)
     }
+    //вызов функции
     const handleStateModal = function (e) {
         falseStateModal(props.stateModal)
     }
@@ -19,12 +20,14 @@ export function ModalHeader (props) {
         </div>
     )
 }
-
-export function ModalSortItem ({setStateSortModal, ...props}) {
-    
-    const handlerChange = (e) => {
-        if (props.atribute !== props.activity[0]) {
-            props.activity[1](props.atribute);
+//компонент элемента сортировки в модальном окне сортировки
+export function ModalSortItem ({setStateSortModal, atribute, ...props}) {
+    const state = props.activity[0]
+    const setState = props.activity[1]
+    //изменение стейта сортировки при нажатии
+    const handlerChange = () => {
+        if (atribute !== state) {
+            setState(atribute);
         }
         setStateSortModal(false)
     }
@@ -32,10 +35,10 @@ export function ModalSortItem ({setStateSortModal, ...props}) {
     return (
         <div 
             className={'modal__sorting-item' +
-                (props.atribute === props.activity[0] ? ' active' : '')}
+                (atribute === state ? ' active' : '')}
             onClick={handlerChange}
         >
-            <p>{props.atribute}</p>
+            <p>{atribute}</p>
             <ReactSVG src={require('../image/choosed.svg').default} />
         </div>
     )
