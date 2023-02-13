@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 import GridItem from './GridItem';
-//компонент лист элемента
+//компонент лист элемента, где находятся все товары
 export default function GridList({sortMethod, filterMethod, gridItems, searchMethod}) {
+    //функция фильтрации товаров по поиску
     const searching = useCallback((gridItems) => {
         if (searchMethod[1] !== '') {
             const asd = gridItems.filter(item => item.name.toLowerCase().includes(searchMethod[1]))
@@ -9,6 +10,7 @@ export default function GridList({sortMethod, filterMethod, gridItems, searchMet
         }
         return gridItems
     }, [searchMethod])
+    //функция фильтрации товаров по атрибутам из модального окна
     const filtering = useCallback((gridItems) => {
         let searchingGridItems = searching(gridItems)
         if (filterMethod.price.from !== '' || filterMethod.price.to !== '') {
@@ -67,7 +69,7 @@ export default function GridList({sortMethod, filterMethod, gridItems, searchMet
 
         return searchingGridItems
     }, [searching, filterMethod])
-    
+    //функция сортировки товаров
     const sorting = useCallback((gridItems) => {
         let filteringGridItems = filtering(gridItems);
         
