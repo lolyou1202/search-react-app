@@ -1,3 +1,6 @@
+#Приложение, где реализован список товаров, с которым можно взаимодействовать функциями поиска, сортировки и фильтрации.
+#Написано на нативном react
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
